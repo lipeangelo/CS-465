@@ -29,11 +29,11 @@ const tripsFindByCode = async (req, res) => {
     .find({ 'code': req.params.tripCode })
     .exec();
 
-  if (!q) {
+  if (!q || q.length === 0) {
     // Database returned no data
     return res
       .status(404)
-      .json(err);
+      .json({ message: 'Trip not found' });
   } else {
     // Return resulting trip list
     return res
