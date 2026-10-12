@@ -9,10 +9,11 @@ router
   .get(tripsController.tripsList)
   .post(tripsController.tripsAddTrip);
 
-// GET and UPDATE a specific trip
+// GET, UPDATE, and DELETE a specific trip
 router
   .route('/trips/:tripCode')
   .get(tripsController.tripsFindByCode)
-  .put(tripsController.tripsUpdateTrip);
+  .put(tripsController.tripsUpdateTrip)
+  .delete(tripsController.tripsDeleteTrip);
 
 module.exports = router;
