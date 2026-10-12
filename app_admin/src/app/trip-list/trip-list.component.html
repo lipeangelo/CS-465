@@ -1,0 +1,47 @@
+
+<div class="container mt-4">
+
+    <h2>Travlr Getaways - Trip Administration</h2>
+    <p>Manage available trips below.</p>
+  
+    <!-- Edit Trip Form -->
+    <div *ngIf="selectedTrip">
+      <app-edit-trip
+        [trip]="selectedTrip"
+        (tripUpdated)="onTripUpdated()"
+        (cancelEdit)="cancelEdit()">
+      </app-edit-trip>
+    </div>
+  
+    <!-- Add Trip Form -->
+    <div *ngIf="!selectedTrip">
+      <app-add-trip
+        (tripAdded)="loadTrips()">
+      </app-add-trip>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Trip Cards -->
+    <h3 class="mt-4 mb-3">Available Trips</h3>
+  
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let trip of trips">
+        <app-trip-card
+          [trip]="trip"
+          (editTrip)="editTrip($event)">
+        </app-trip-card>
+      </div>
+    </div>
+  
+    <div
+      *ngIf="trips.length === 0 && !errorMessage"
+      class="alert alert-info">
+      No trips available.
+    </div>
+  
+  </div>
+  

@@ -1,0 +1,45 @@
+
+<div class="card h-100">
+    <img
+      *ngIf="trip.image"
+      [src]="'/images/' + trip.image"
+      class="card-img-top"
+      [alt]="trip.name"
+    />
+  
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">{{ trip.name }}</h5>
+  
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ trip.code }}
+      </h6>
+  
+      <p class="card-text">{{ trip.description }}</p>
+  
+      <p class="card-text">
+        <strong>Length:</strong> {{ trip.length }}
+      </p>
+  
+      <p class="card-text">
+        <strong>Start:</strong> {{ trip.start | date:'mediumDate' }}
+      </p>
+  
+      <p class="card-text">
+        <strong>Resort:</strong> {{ trip.resort }}
+      </p>
+  
+      <p class="card-text">
+        <strong>Price:</strong> {{ trip.perPerson | currency:'USD' }}
+      </p>
+  
+      <div class="mt-auto pt-3">
+        <button
+          type="button"
+          class="btn btn-warning w-100"
+          (click)="onEdit()">
+          Edit Trip
+        </button>
+      </div>
+    </div>
+  </div>
+  
