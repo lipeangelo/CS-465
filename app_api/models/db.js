@@ -50,7 +50,11 @@ process.on('SIGTERM', () => {
 // Make initial connection to DB
 connect();
 
-// Import Mongoose schema
+// Import Mongoose schemas
+// Register the Trip model for travel package data.
 require('./travlr');
+
+// Register the User model for authentication.
+require('./users');
 
 module.exports = mongoose;

@@ -1,4 +1,20 @@
-
 <main>
-  <app-trip-list></app-trip-list>
+  <!-- Show the administrator dashboard only after login. -->
+  <ng-container *ngIf="authenticationService.isLoggedIn(); else loginView">
+    <header class="admin-header">
+      <span>Travlr Getaways Administration</span>
+
+      <button type="button" (click)="logout()">
+        Log Out
+      </button>
+    </header>
+
+    <!-- Preserve the existing trip management dashboard. -->
+    <app-trip-list></app-trip-list>
+  </ng-container>
+
+  <!-- Show the Angular login page when not authenticated. -->
+  <ng-template #loginView>
+    <router-outlet></router-outlet>
+  </ng-template>
 </main>

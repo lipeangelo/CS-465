@@ -2,7 +2,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './services/auth.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { TripListComponent } from './trip-list/trip-list.component';
 import { TripCardComponent } from './trip-card/trip-card.component';
 import { AddTripComponent } from './add-trip/add-trip.component';
 import { EditTripComponent } from './edit-trip/edit-trip.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { EditTripComponent } from './edit-trip/edit-trip.component';
     TripListComponent,
     TripCardComponent,
     AddTripComponent,
-    EditTripComponent
+    EditTripComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { EditTripComponent } from './edit-trip/edit-trip.component';
     FormsModule
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(withInterceptors([authInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

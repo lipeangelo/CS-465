@@ -1,19 +1,34 @@
-
 const express = require('express');
-const router = express.Router();
-const tripsController = require('../controllers/trips');
+const { expressjwt: jwt } = require('express-jwt');
 
-// GET all trips and POST a new trip
+const router = express.Router();
+
+const tripsController = require('../controllers/trips');
+const authenticationController = require('../controllers/authentication');
+
+// Verify the JWT supplied in the Authorization: Bearer header.
+// Requests without a valid token cannot modify trip data.
+const authenticateJWT = jwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ['HS256']
+});
+
+// Public authentication endpoints.
+// Registration creates an account; login returns a signed JWT.
+router.post('/register', authenticationController.register);
+router.post('/login', authenticationController.login);
+
+// Public GET endpoint; protected POST endpoint.
 router
   .route('/trips')
   .get(tripsController.tripsList)
-  .post(tripsController.tripsAddTrip);
+  .post(authenticateJWT, tripsController.tripsAddTrip);
 
-// GET, UPDATE, and DELETE a specific trip
+// Public GET endpoint; protected UPDATE and DELETE endpoints.
 router
   .route('/trips/:tripCode')
   .get(tripsController.tripsFindByCode)
-  .put(tripsController.tripsUpdateTrip)
-  .delete(tripsController.tripsDeleteTrip);
+  .put(authenticateJWT, tripsController.tripsUpdateTrip)
+  .delete(authenticateJWT, tripsController.tripsDeleteTrip);
 
 module.exports = router;
