@@ -1,0 +1,128 @@
+
+<div class="card mb-4">
+    <div class="card-header bg-warning">
+      <h4 class="mb-0">Edit Trip</h4>
+    </div>
+  
+    <div class="card-body">
+  
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+  
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+  
+      <form #editForm="ngForm" (ngSubmit)="updateTrip()">
+  
+        <div class="mb-3">
+          <label for="editCode" class="form-label">Trip Code</label>
+          <input
+            type="text"
+            id="editCode"
+            name="code"
+            class="form-control"
+            [(ngModel)]="editedTrip.code"
+            readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editName" class="form-label">Trip Name</label>
+          <input
+            type="text"
+            id="editName"
+            name="name"
+            class="form-control"
+            [(ngModel)]="editedTrip.name"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editLength" class="form-label">Trip Length</label>
+          <input
+            type="text"
+            id="editLength"
+            name="length"
+            class="form-control"
+            [(ngModel)]="editedTrip.length"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editStart" class="form-label">Start Date</label>
+          <input
+            type="date"
+            id="editStart"
+            name="start"
+            class="form-control"
+            [(ngModel)]="editedTrip.start"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editResort" class="form-label">Resort</label>
+          <input
+            type="text"
+            id="editResort"
+            name="resort"
+            class="form-control"
+            [(ngModel)]="editedTrip.resort"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editPrice" class="form-label">Price Per Person</label>
+          <input
+            type="number"
+            id="editPrice"
+            name="perPerson"
+            class="form-control"
+            [(ngModel)]="editedTrip.perPerson"
+            min="0"
+            step="0.01"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editImage" class="form-label">Image Filename</label>
+          <input
+            type="text"
+            id="editImage"
+            name="image"
+            class="form-control"
+            [(ngModel)]="editedTrip.image"
+            required>
+        </div>
+  
+        <div class="mb-3">
+          <label for="editDescription" class="form-label">Description</label>
+          <textarea
+            id="editDescription"
+            name="description"
+            class="form-control"
+            rows="4"
+            [(ngModel)]="editedTrip.description"
+            required></textarea>
+        </div>
+  
+        <div class="d-flex gap-2">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="editForm.invalid || isSaving">
+            {{ isSaving ? 'Saving...' : 'Update Trip' }}
+          </button>
+  
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+  
